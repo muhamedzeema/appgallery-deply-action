@@ -1,0 +1,16 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy to Huawei App Gallery
+        uses: muhamedzeema/appgallery-deply-action@main
+        with:
+          client-id: "xxx"
+          client-key: "xxxx"
+          app-id: "xxx"
+          file-extension: "apk"
+          file-path: "android/build/outputs/apk/release/app-release.apk"

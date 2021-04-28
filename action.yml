@@ -1,0 +1,22 @@
+name: "Deploy to Huawei App Gallery"
+description: "Uploads and releases apps to Huawei App Gallery."
+inputs:
+  client-id: # Client Id
+    description: "Client Id"
+    required: true
+  client-key: # Client Key
+    description: "Client Key"
+    required: true
+  app-id: # App id
+    description: "App Id"
+    required: true
+  file-extension: # File name extension apk/rpk/pdf/jpg/jpeg/png/bmp/mp4/mov/aab.
+    description: "File name extension apk/rpk/pdf/jpg/jpeg/png/bmp/mp4/mov/aab."
+    required: true
+    default: "apk"
+  file-path: # File name extension apk/rpk/pdf/jpg/jpeg/png/bmp/mp4/mov/aab.
+    description: "file path tp upload"
+    required: true
+runs:
+  using: "node12"
+  main: "index.js"

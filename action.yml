@@ -1,6 +1,7 @@
 name: "Deploy to Huawei App Gallery"
 description: "Uploads and releases apps to Huawei App Gallery."
 icon: "upload"
+color: "blue
 inputs:
   client-id: # Client Id
     description: "Client Id"

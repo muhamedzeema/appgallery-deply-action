@@ -1,5 +1,9 @@
 name: "Deploy to Huawei App Gallery"
 description: "Uploads and releases apps to Huawei App Gallery."
+author: "Muhamed Zeema"
+branding:
+  icon: "upload"
+  color: "blue"
 inputs:
   client-id: # Client Id
     description: "Client Id"

@@ -100,13 +100,13 @@ function uploadFile({
  * @param  {} clientId
  * @param  {} token
  */
-function updateAppFileInfo({ fileDestUrl, size, appId, clientId, token }) {
+function updateAppFileInfo({ fileDestUrl, size, appId, clientId, token, fileExt }) {
   console.log("Update App File Info .... ⌛️");
   var data = JSON.stringify({
     fileType: "5",
     files: [
       {
-        fileName: "app-release.apk",
+        fileName: `app-release.${fileExt}`,
         fileDestUrl: fileDestUrl,
         size,
       },
@@ -159,6 +159,7 @@ async function startDeply({ clientId, clientKey, appId, fileExt, filePath }) {
       size: uploadInfo.data.result.UploadFileRsp.fileInfoList[0].size,
       fileDestUrl:
         uploadInfo.data.result.UploadFileRsp.fileInfoList[0].fileDestUlr,
+      fileExt
     });
     if (updateFileInfo.data.ret.msg === "success") {
       console.log("successfully submitted 🎉🎉🎉🎉🎉🎉");

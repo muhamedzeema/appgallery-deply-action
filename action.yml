@@ -21,6 +21,10 @@ inputs:
   file-path: # File name extension apk/rpk/pdf/jpg/jpeg/png/bmp/mp4/mov/aab.
     description: "file path tp upload"
     required: true
+  submit:
+    description: "whether or not to submit automatically"
+    required: false
+    default: false
 runs:
   using: "node12"
   main: "index.js"

@@ -31,6 +31,10 @@ Client Id and the Client Key for that we need to create a new API key in the App
 
 **Required** file path tp upload
 
+### `submit` (BOOL) default false
+
+whether or not to submit automatically
+
 ## Sample usage
 
 ```
@@ -42,3 +46,4 @@ Client Id and the Client Key for that we need to create a new API key in the App
           app-id: ${{secrets.HUAWEI_APP_ID}}
           file-extension: "apk"
           file-path: "apk/release/app-release.apk"
+          submit: true

@@ -55,6 +55,27 @@ async function getUploadUrl({ appId, fileExt, clientId, token }) {
 }
 
 /**
+ *
+ * Submit the app.
+ * @param clientId clientId
+ * @param token token
+ * @param appId App ID.
+ */
+async function submitApp({ appId, clientId, token }) {
+  console.log("Submitting .... ⌛️");
+  var config = {
+    method: "post",
+    url: `${domain}/publish/v2/app-submit?appId=${appId}`,
+    headers: {
+      client_id: clientId,
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
+  return await axios(config);
+}
+
+/**
  * Upload files.
  * @param clientId clientid
  * @param token token
@@ -127,7 +148,7 @@ function updateAppFileInfo({ fileDestUrl, size, appId, clientId, token, fileExt 
   return axios(config);
 }
 
-async function startDeply({ clientId, clientKey, appId, fileExt, filePath }) {
+async function startDeply({ clientId, clientKey, appId, fileExt, filePath, submit }) {
   try {
     const newToken = await getToken({
       clientId,
@@ -162,7 +183,20 @@ async function startDeply({ clientId, clientKey, appId, fileExt, filePath }) {
       fileExt
     });
     if (updateFileInfo.data.ret.msg === "success") {
-      console.log("successfully submitted 🎉🎉🎉🎉🎉🎉");
+      console.log("successfully uploaded 🎉🎉🎉🎉🎉🎉");
+      if (submit) {
+        const submitResult = await submitApp({
+          appId,
+          clientId,
+          token: newToken.data.access_token,
+        });
+        if (submitResult.data.ret.msg === "success") {
+          console.log("successfully submitted 🎉🎉🎉🎉🎉🎉");
+	} else {
+          console.log(submitResult.data.ret.msg);
+          core.setFailed(submitResult.data.ret.msg);
+	}
+      }
     } else {
       core.setFailed(updateFileInfo.data.ret.msg);
     }
@@ -177,12 +211,13 @@ try {
   const appId = core.getInput("app-id");
   const fileExt = core.getInput("file-extension");
   const filePath = core.getInput("file-path");
+  const submit = core.getInput("submit");
 
   console.log(
     chalk.yellow(figlet.textSync("AppGallery", { horizontalLayout: "full" }))
   );
 
-  startDeply({ clientId, clientKey, appId, fileExt, filePath });
+  startDeply({ clientId, clientKey, appId, fileExt, filePath, submit });
 } catch (error) {
   core.setFailed(error.message);
 }

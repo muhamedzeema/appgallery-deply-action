@@ -120,14 +120,16 @@ function uploadFile({
  * @param  {} appId
  * @param  {} clientId
  * @param  {} token
+ * @param  {} fileExt
+ * @param  {} fileName
  */
-function updateAppFileInfo({ fileDestUrl, size, appId, clientId, token, fileExt }) {
+function updateAppFileInfo({ fileDestUrl, size, appId, clientId, token, fileExt, fileName }) {
   console.log("Update App File Info .... ⌛️");
   var data = JSON.stringify({
     fileType: "5",
     files: [
       {
-        fileName: `app-release.${fileExt}`,
+        fileName: `${fileName}.${fileExt}`,
         fileDestUrl: fileDestUrl,
         size,
       },
@@ -148,7 +150,7 @@ function updateAppFileInfo({ fileDestUrl, size, appId, clientId, token, fileExt 
   return axios(config);
 }
 
-async function startDeply({ clientId, clientKey, appId, fileExt, filePath, submit }) {
+async function startDeply({ clientId, clientKey, appId, fileExt, filePath, fileName, submit }) {
   try {
     const newToken = await getToken({
       clientId,
@@ -180,7 +182,8 @@ async function startDeply({ clientId, clientKey, appId, fileExt, filePath, submi
       size: uploadInfo.data.result.UploadFileRsp.fileInfoList[0].size,
       fileDestUrl:
         uploadInfo.data.result.UploadFileRsp.fileInfoList[0].fileDestUlr,
-      fileExt
+      fileExt,
+      fileName
     });
     if (updateFileInfo.data.ret.msg === "success") {
       console.log("successfully uploaded 🎉🎉🎉🎉🎉🎉");
@@ -211,13 +214,14 @@ try {
   const appId = core.getInput("app-id");
   const fileExt = core.getInput("file-extension");
   const filePath = core.getInput("file-path");
+  const fileName = core.getInput("file-name");
   const submit = core.getInput("submit");
 
   console.log(
     chalk.yellow(figlet.textSync("AppGallery", { horizontalLayout: "full" }))
   );
 
-  startDeply({ clientId, clientKey, appId, fileExt, filePath, submit });
+  startDeply({ clientId, clientKey, appId, fileExt, filePath, fileName, submit });
 } catch (error) {
   core.setFailed(error.message);
 }

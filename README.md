@@ -29,11 +29,15 @@ Client Id and the Client Key for that we need to create a new API key in the App
 
 ### `file-path`
 
-**Required** file path tp upload
+**Required** File path to upload
+
+### `file-name` (String) default app-release
+
+**Optional** Desired file name seen on AppGallery Connect after the upload. This will define a custom file name on AppGallery package file list. If not used, the file name shown on AppGallery Connect will be always app-release.extension.
 
 ### `submit` (BOOL) default false
 
-whether or not to submit automatically
+**Optional** whether or not to submit automatically
 
 ## Sample usage
 
@@ -46,4 +50,5 @@ whether or not to submit automatically
           app-id: ${{secrets.HUAWEI_APP_ID}}
           file-extension: "apk"
           file-path: "apk/release/app-release.apk"
+          file-name: "MyAppName-1.0.0"
           submit: true

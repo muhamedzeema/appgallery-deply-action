@@ -19,8 +19,12 @@ inputs:
     required: true
     default: "apk"
   file-path: # File name extension apk/rpk/pdf/jpg/jpeg/png/bmp/mp4/mov/aab.
-    description: "file path tp upload"
+    description: "file path to upload"
     required: true
+  file-name: # File name can be customized, default value is app-release.
+    description: "desired file name to upload"
+    required: false
+    default: 'app-release'
   submit:
     description: "whether or not to submit automatically"
     required: false

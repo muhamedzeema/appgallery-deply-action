@@ -187,7 +187,7 @@ async function startDeply({ clientId, clientKey, appId, fileExt, filePath, fileN
     });
     if (updateFileInfo.data.ret.msg === "success") {
       console.log("successfully uploaded 🎉🎉🎉🎉🎉🎉");
-      if (submit) {
+      if (submit === 'true') {
         const submitResult = await submitApp({
           appId,
           clientId,
@@ -195,10 +195,10 @@ async function startDeply({ clientId, clientKey, appId, fileExt, filePath, fileN
         });
         if (submitResult.data.ret.msg === "success") {
           console.log("successfully submitted 🎉🎉🎉🎉🎉🎉");
-	} else {
-          console.log(submitResult.data.ret.msg);
-          core.setFailed(submitResult.data.ret.msg);
-	}
+        } else {
+              console.log(submitResult.data.ret.msg);
+              core.setFailed(submitResult.data.ret.msg);
+        }
       }
     } else {
       core.setFailed(updateFileInfo.data.ret.msg);
